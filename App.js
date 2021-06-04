@@ -23,7 +23,7 @@ function Stacks() {
         }
       }}
     >
-      <Stack.Screen name='Deck' component={Deck} options={{title: 'Deck'}} />
+      <Stack.Screen name='Deck' component={Deck} options={({route}) => ({title: route.params.deckId})} />
     </Stack.Navigator>
   )
 }
