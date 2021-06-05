@@ -10,7 +10,7 @@ export const getDeck = (title) => {
     return getDecks()
         .then((results) => {
             const data = JSON.parse(results);
-            data[title]
+            return data[title]
         });
 }
 
@@ -18,9 +18,19 @@ export const saveDeckTitle = (title) => {
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
             [title]: {
                 title,
-                questions: []
+                questions: [],
+                answers: []
             },
         }));
+}
+
+export const removeDeck = (title) => {
+    return getDecks()
+    .then((results) => {
+        const data = JSON.parse(results);
+        delete data[title];
+        AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(data));
+    })
 }
 
 export const addCardToDeck = ({title, card}) => {

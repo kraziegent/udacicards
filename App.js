@@ -4,11 +4,13 @@ import { SafeAreaView } from 'react-native';
 import { StyleSheet } from 'react-native';
 import Decks from './components/Decks';
 import AddDeck from './components/AddDeck';
+import AddCard from './components/AddCard';
 import Deck from './components/Deck';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
+import Quiz from './components/Quiz';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -20,10 +22,16 @@ function Stacks() {
         headerTintColor: '#f5f5f5',
         headerStyle: {
           backgroundColor: '#4e4cb8',
-        }
+        },
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          textAlign: 'center'
+        },
       }}
     >
       <Stack.Screen name='Deck' component={Deck} options={({route}) => ({title: route.params.deckId})} />
+      <Stack.Screen name='Add Card' component={AddCard} />
+      <Stack.Screen name='Quiz' component={Quiz} />
     </Stack.Navigator>
   )
 }

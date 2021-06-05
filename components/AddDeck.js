@@ -39,10 +39,10 @@ export default function AddDeck(props) {
 
             <View style={{position: 'relative', top: '60%'}}>
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+                    style={styles.btn}
                     onPress={submit}
                 >
-                    <Text style={styles.submitBtnText}>Create Deck</Text>
+                    <Text style={styles.btnText}>Create Deck</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
 
-    iosSubmitBtn: {
+    btn: {
         backgroundColor: '#383838',
         padding: 10,
         borderRadius: 7,
@@ -64,19 +64,7 @@ const styles = StyleSheet.create({
         marginRight: 40,
     },
 
-    androidSubmitBtn: {
-        backgroundColor: '#383838',
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        borderRadius: 2,
-        height: 45,
-        alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    submitBtnText: {
+    btnText: {
         color: '#fff',
         fontSize: 22,
         textAlign: 'center'
