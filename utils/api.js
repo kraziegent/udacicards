@@ -3,15 +3,13 @@ import {DECK_STORAGE_KEY} from './helpers'
 
 
 export const getDecks = () => {
-    return AsyncStorage.getItem(DECK_STORAGE_KEY);
+    return AsyncStorage.getItem(DECK_STORAGE_KEY)
+        .then((data) => JSON.parse(data));
 }
 
 export const getDeck = (title) => {
     return getDecks()
-        .then((results) => {
-            const data = JSON.parse(results);
-            return data[title]
-        });
+        .then((data) => data[title]);
 }
 
 export const saveDeckTitle = (title) => {
@@ -19,23 +17,26 @@ export const saveDeckTitle = (title) => {
             [title]: {
                 title,
                 questions: [],
-                answers: []
             },
         }));
 }
 
 export const removeDeck = (title) => {
     return getDecks()
-    .then((results) => {
-        const data = JSON.parse(results);
-        delete data[title];
-        AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(data));
-    })
+        .then((data) => {
+            delete data[title];
+            AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data));
+        });
 }
 
-export const addCardToDeck = ({title, card}) => {
+export const addCardToDeck = (title, card) => {
+    let decks;
+    getDecks().then((data) => decks = data);
+
     return getDeck(title)
         .then((deck) => {
-            
-        })
+            deck.questions.push(card);
+            decks[title] = deck;
+            AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(decks));
+        });
 }

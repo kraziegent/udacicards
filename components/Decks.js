@@ -1,21 +1,19 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Text, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 import { getDecks } from '../utils/api';
-import { DECK_STORAGE_KEY, data } from '../utils/helpers';
 
 export default function Decks(props) {
     const [decks, setDecks] = useState();
   
     useEffect(() => {
-      // AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(data));
       getDecks()
-      .then((result) => setDecks(JSON.parse(result)));
-    },[decks])
+      .then((decks) => setDecks(decks));
+    },[])
   
+    console.log(decks)
     return (
       <ScrollView style={{paddingRight: 30}}>
         {decks && Object.keys(decks).map((key) => {

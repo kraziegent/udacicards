@@ -10,7 +10,7 @@ export default function Deck(props) {
 
     const deleteDeck = () => {
         removeDeck(deckId);
-        navigation.goBack()
+        navigation.goBack();
     }
 
     useEffect(() => {

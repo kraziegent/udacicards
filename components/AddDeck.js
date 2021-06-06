@@ -9,7 +9,7 @@ export default function AddDeck(props) {
 
     const submit = () => {
         if(text) {
-            saveDeckTitle(text);
+            saveDeckTitle(text); //TODO:: switch to redux
             props.navigation.navigate('Decks');
             setText('');
         }else{
