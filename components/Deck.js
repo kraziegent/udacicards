@@ -1,8 +1,7 @@
 import AppLoading from 'expo-app-loading';
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { removeDeckAsync, selectDeck } from '../redux/decksSlice';
 
 export default function Deck(props) {
