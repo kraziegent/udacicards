@@ -21,7 +21,7 @@ export const saveDeckTitle = (title) => {
         }));
 }
 
-export const removeDeck = (title) => {
+export const deleteDeck = (title) => {
     return getDecks()
         .then((data) => {
             delete data[title];

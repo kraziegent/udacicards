@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Text, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
-import { getDecks } from '../utils/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadDecksAsync } from '../redux/decksSlice';
 
 export default function Decks(props) {
-    const [decks, setDecks] = useState();
+    const decks = useSelector(state => state.decks);
+    const dispatch = useDispatch();
   
     useEffect(() => {
-      getDecks()
-      .then((decks) => setDecks(decks));
-    },[])
+      if(!decks) {
+        dispatch(loadDecksAsync());
+      }
+    },[decks])
   
     return (
       <ScrollView style={{paddingRight: 30}}>

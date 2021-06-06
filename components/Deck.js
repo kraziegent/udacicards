@@ -1,22 +1,21 @@
 import AppLoading from 'expo-app-loading';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import {getDeck, removeDeck} from '../utils/api'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { removeDeckAsync, selectDeck } from '../redux/decksSlice';
 
 export default function Deck(props) {
 
-    const [deck, setDeck] = useState();
     const {route: {params: {deckId}}, navigation} = props;
+    const deck = useSelector(state => selectDeck(state, deckId));
+    const dispatch = useDispatch();
 
     const deleteDeck = () => {
-        removeDeck(deckId);
+        dispatch(removeDeckAsync(deckId));
+
         navigation.goBack();
     }
-
-    useEffect(() => {
-        getDeck(deckId)
-        .then((result) => setDeck(result));
-    },[])
 
     if(!deck) {
         return <AppLoading />

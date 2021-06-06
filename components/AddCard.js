@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { addCardToDeck } from '../utils/api';
+import { useDispatch } from 'react-redux';
+import { saveCardAsync } from '../redux/decksSlice';
 
 export default function AddCard(props) {
 
@@ -9,6 +10,7 @@ export default function AddCard(props) {
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
     const [error, setError] = useState({question: false, answer: false});
+    const dispatch = useDispatch();
 
     const submit = () => {
 
@@ -17,7 +19,7 @@ export default function AddCard(props) {
         }else if(!answer) {
             setError({answer: true});
         }else {
-            addCardToDeck(deckId, {question, answer}); //TODO:: switch to redux
+            dispatch(saveCardAsync({title: deckId, card: {question, answer}}));
             setQuestion('');
             setAnswer('');
             navigation.goBack();

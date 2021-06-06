@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { View, Text, Platform, TextInput, TouchableOpacity } from 'react-native';
-import { saveDeckTitle } from '../utils/api';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { saveDeckAsync } from '../redux/decksSlice';
 
 export default function AddDeck(props) {
     const [text, setText] = useState('');
     const [error, setError] = useState(false);
+    const dispatch = useDispatch();
 
     const submit = () => {
         if(text) {
-            saveDeckTitle(text); //TODO:: switch to redux
+            dispatch(saveDeckAsync(text));
             props.navigation.navigate('Decks');
             setText('');
         }else{

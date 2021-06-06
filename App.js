@@ -11,6 +11,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
 import Quiz from './components/Quiz';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -87,12 +89,14 @@ function MainNavigator() {
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <NavigationContainer>
-          <MainNavigator />
-        </NavigationContainer>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}>
+        <NavigationContainer>
+            <MainNavigator />
+          </NavigationContainer>
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </Provider>
   );
 }
 
