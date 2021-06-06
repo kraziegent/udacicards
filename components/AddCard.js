@@ -35,7 +35,7 @@ export default function AddCard(props) {
                     value={question}
                 />
                 {(error && error.question) && 
-                    <Text style={{color: 'red', fontWeight: 'bold'}}>Question is required, kindly enter a question to continue</Text>
+                    <Text style={styles.error}>Question is required, kindly enter a question to continue</Text>
                 }
 
                 <TextInput
@@ -46,7 +46,7 @@ export default function AddCard(props) {
                     value={answer}
                 />
                 {(error && error.answer) &&
-                    <Text style={{color: 'red', fontWeight: 'bold'}}>Answer is required, kindly enter the answer to continue</Text>
+                    <Text style={styles.error}>Answer is required, kindly enter the answer to continue</Text>
                 }
 
             </View>
@@ -78,12 +78,12 @@ const styles = StyleSheet.create({
     },
 
     btn: {
-        backgroundColor: '#383838',
-        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingRight: 40,
+        paddingLeft: 40,
         borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40,
+        backgroundColor: '#383838',
     },
 
     btnText: {
@@ -91,4 +91,10 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center'
     },
+
+    error: {
+        color: 'red',
+        fontWeight: 'bold',
+        marginBottom: 10
+    }
 })

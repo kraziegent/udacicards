@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
     },
 
     btn: {
-        backgroundColor: '#383838',
-        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingRight: 40,
+        paddingLeft: 40,
         borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40,
+        backgroundColor: '#383838',
     },
 
     btnText: {

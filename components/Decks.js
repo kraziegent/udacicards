@@ -13,7 +13,6 @@ export default function Decks(props) {
       .then((decks) => setDecks(decks));
     },[])
   
-    console.log(decks)
     return (
       <ScrollView style={{paddingRight: 30}}>
         {decks && Object.keys(decks).map((key) => {

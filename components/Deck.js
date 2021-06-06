@@ -24,11 +24,11 @@ export default function Deck(props) {
 
     return (
         <View style={styles.container}>
-            <View style={{position: 'relative', top: '8%'}}>
+            <View style={{alignItems: 'center',position: 'relative', top: '8%'}}>
                 <Text style={{fontSize: 24}}>{deck.title}</Text>
                 <Text>{deck.questions.length} Card(s)</Text>
             </View>
-            <View style={{position: 'relative', top: '40%'}}>
+            <View style={{position: 'relative', top: '50%'}}>
                 <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Stacks', {screen: 'Add Card', params: {deckId: deckId}})}>
                     <Text style={[styles.btnText, {color: '#383838'}]}>Add Card</Text>
                 </TouchableOpacity>
@@ -46,7 +46,7 @@ export default function Deck(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        padding: 20,
     },
 
     btn: {
