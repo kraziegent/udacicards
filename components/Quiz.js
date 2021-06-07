@@ -36,6 +36,11 @@ export default function Quiz(props) {
         }
     }
 
+    const reset = () => {
+        dispatch(resetQuiz(deckId));
+        dispatch(startQuiz({deck: deckId, questions: deck.questions}));
+    }
+
     if(deck && deck.questions.length < 1) {
         return (
             <View style={styles.container}>
@@ -54,8 +59,8 @@ export default function Quiz(props) {
                 <Text style={styles.card}>You scored:</Text>
                 <Text style={styles.card}>{Math.round((quiz.correct * 100) / quiz.initial)}%</Text>
 
-                <TouchableOpacity style={[styles.btn, {backgroundColor: '#383838', marginTop: 5}]} onPress={() => dispatch(resetQuiz(deckId))}>
-                    <Text style={styles.btnText}>Reset Quiz</Text>
+                <TouchableOpacity style={[styles.btn, {backgroundColor: '#383838', marginTop: 5}]} onPress={reset}>
+                    <Text style={styles.btnText}>Restart Quiz</Text>
                 </TouchableOpacity>
             </View>
         )
