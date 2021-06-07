@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {selectDeck} from '../redux/decksSlice';
-import {answeredQuestion, startQuiz, correctAnswer, addQuestion} from '../redux/quizSlice';
+import {answeredQuestion, startQuiz, correctAnswer, resetQuiz} from '../redux/quizSlice';
 
 export default function Quiz(props) {
 
@@ -18,7 +18,7 @@ export default function Quiz(props) {
         if(!quiz) {
           dispatch(startQuiz({deck: deckId, questions: deck.questions}));
         }
-    },[])
+    },[quiz])
 
     const submit = (correct = false) => {
 
@@ -38,23 +38,22 @@ export default function Quiz(props) {
         return <AppLoading />
     }
 
-    if(quiz.answered === deck.questions.length) {
+    if(quiz.answered === quiz.initial) {
         return (
             <View style={[styles.container, {position: 'relative', top: '30%'}]}>
                 <Text style={styles.card}>You scored:</Text>
                 <Text style={styles.card}>{Math.round((quiz.correct * 100) / deck.questions.length)}%</Text>
+
+                <TouchableOpacity style={[styles.btn, {backgroundColor: '#383838', marginTop: 5}]} onPress={() => dispatch(resetQuiz(deckId))}>
+                    <Text style={styles.btnText}>Reset Quiz</Text>
+                </TouchableOpacity>
             </View>
         )
-    }else if(deck.questions.length > quiz.answered && quiz.questions.length == 0) {
-        const questions = deck.questions.slice(quiz.answered);
-
-        dispatch(addQuestion({deck: deckId, questions}));
-        return <AppLoading />
     }
 
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 18, marginTop: 5, marginBottom: 5, fontWeight: 'bold'}}>{`${quiz.answered + 1}/${deck.questions.length}`}</Text>
+            <Text style={{fontSize: 18, marginTop: 5, marginBottom: 5, fontWeight: 'bold'}}>{`${quiz.answered + 1}/${quiz.initial}`}</Text>
             <View style={{position: 'relative', top: '10%', alignItems: 'center'}}>
                 {question ?
                     <Text style={styles.card}>{quiz.questions[0].question}</Text>
@@ -62,7 +61,7 @@ export default function Quiz(props) {
                     <Text style={styles.card}>{quiz.questions[0].answer}</Text>
                 }
                 <TouchableOpacity onPress={() => setQuestion(!question)}>
-                    <Text style={{fontSize: 18, marginTop: 5, fontWeight: 'bold', color: '#cc0505'}}>{question ? 'Answer' : 'Question'}</Text>
+                    <Text style={{fontSize: 18, marginTop: 5, fontWeight: 'bold', color: '#cc0505'}}>{question ? 'View Answer' : ' View Question'}</Text>
                 </TouchableOpacity>
             </View>
             <View style={{position: 'relative', top: '50%'}}>

@@ -1,13 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { SafeAreaView } from 'react-native';
-import { StyleSheet } from 'react-native';
+import React, { createRef } from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Decks from './components/Decks';
 import AddDeck from './components/AddDeck';
 import AddCard from './components/AddCard';
 import Deck from './components/Deck';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
 import Quiz from './components/Quiz';
@@ -16,6 +15,7 @@ import store from './redux/store';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const navigationRef = createRef();
 
 function Stacks() {
   return (
@@ -31,7 +31,11 @@ function Stacks() {
         },
       }}
     >
-      <Stack.Screen name='Deck' component={Deck} options={({route}) => ({title: route.params.deckId})} />
+      <Stack.Screen name='Deck' component={Deck} options={(props) => ({
+        title: props.route.params.deckId,
+        headerBackTitle: 'Decks',
+        headerLeft: (props) => (<HeaderBackButton {...props} onPress={() => navigationRef.current?.navigate('Decks')} />)
+      })} />
       <Stack.Screen name='Add Card' component={AddCard} />
       <Stack.Screen name='Quiz' component={Quiz} />
     </Stack.Navigator>
@@ -91,7 +95,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
             <MainNavigator />
           </NavigationContainer>
         <StatusBar style="auto" />

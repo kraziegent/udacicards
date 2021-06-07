@@ -12,7 +12,7 @@ export default function AddDeck(props) {
     const submit = () => {
         if(text) {
             dispatch(saveDeckAsync(text));
-            props.navigation.navigate('Decks');
+            props.navigation.navigate('Stacks', {screen: 'Deck', params: {deckId: text}});
             setText('');
         }else{
             setError(true);
