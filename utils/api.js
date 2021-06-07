@@ -4,7 +4,10 @@ import {DECK_STORAGE_KEY} from './helpers'
 
 export const getDecks = () => {
     return AsyncStorage.getItem(DECK_STORAGE_KEY)
-        .then((data) => JSON.parse(data));
+        .then((data) => JSON.parse(data))
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 export const getDeck = (title) => {
@@ -18,14 +21,20 @@ export const saveDeckTitle = (title) => {
                 title,
                 questions: [],
             },
-        }));
+        }))
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 export const deleteDeck = (title) => {
     return getDecks()
         .then((data) => {
             delete data[title];
-            AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data));
+            AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
+            .catch(error => {
+                console.log(error);
+            });
         });
 }
 
@@ -37,6 +46,9 @@ export const addCardToDeck = (title, card) => {
         .then((deck) => {
             deck.questions.push(card);
             decks[title] = deck;
-            AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(decks));
+            AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(decks))
+            .catch(error => {
+                console.log(error);
+            });
         });
 }

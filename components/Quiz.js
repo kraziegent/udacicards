@@ -9,7 +9,7 @@ import {clearLocalNotification, setLocalNotification} from '../utils/helpers';
 
 export default function Quiz(props) {
 
-    const {route: {params: {deckId}}, navigation} = props;
+    const {route: {params: {deckId}}} = props;
     const deck = useSelector(state => selectDeck(state, deckId));
     const quiz = useSelector(state => state.quiz[deckId]);
     const dispatch = useDispatch();
@@ -19,15 +19,21 @@ export default function Quiz(props) {
         if(!quiz) {
           dispatch(startQuiz({deck: deckId, questions: deck.questions}));
         }
-    },[quiz])
+        return () => {
+            dispatch(resetQuiz(deckId));
+        }
+    },[])
 
     const submit = (correct = false) => {
 
         dispatch(answeredQuestion(deckId))
         correct && dispatch(correctAnswer(deckId))
+        setQuestion(true);
 
-        clearLocalNotification()
-        .then(setLocalNotification)
+        if(quiz.answered === quiz.initial) {
+            clearLocalNotification()
+            .then(setLocalNotification)
+        }
     }
 
     if(deck && deck.questions.length < 1) {

@@ -1,6 +1,8 @@
 # udacicards
 
-This is project was submitted as the third project for the Udacity React Nanodegree programme, the project is a React Native application which can be run on the web, ios or android. The app has been tested on ios and web.
+The project has been tested on `ios` and the `web` to work correctly.
+
+This is project was submitted as the third project for the Udacity React Nanodegree programme, the project is a React Native application which can be run on the web, ios or android.
 
 The App let's you play the Card game, the game is made up of cards with questions and answers to help users study about different topics.
 
