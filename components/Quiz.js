@@ -5,6 +5,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {selectDeck} from '../redux/decksSlice';
 import {answeredQuestion, startQuiz, correctAnswer, resetQuiz} from '../redux/quizSlice';
+import {clearLocalNotification, setLocalNotification} from '../utils/helpers';
 
 export default function Quiz(props) {
 
@@ -24,6 +25,9 @@ export default function Quiz(props) {
 
         dispatch(answeredQuestion(deckId))
         correct && dispatch(correctAnswer(deckId))
+
+        clearLocalNotification()
+        .then(setLocalNotification)
     }
 
     if(deck && deck.questions.length < 1) {

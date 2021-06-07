@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { createRef } from 'react';
+import React, { createRef, useEffect } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Decks from './components/Decks';
 import AddDeck from './components/AddDeck';
@@ -12,6 +12,7 @@ import {FontAwesome, Ionicons} from '@expo/vector-icons';
 import Quiz from './components/Quiz';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { setLocalNotification } from './utils/helpers';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -92,6 +93,11 @@ function MainNavigator() {
 }
 
 export default function App() {
+  
+  useEffect(() => {
+    setLocalNotification();
+  },[])
+
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
